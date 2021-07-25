@@ -1,5 +1,6 @@
 const date = new Date();
-
+let month = moment().month();
+let year = moment().year();
 const renderCalendar = (month) => {
     const monthDays = document.querySelector('.days');
     const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); //specifying the day as 0 gives you the last day of the current month 
@@ -11,7 +12,7 @@ const renderCalendar = (month) => {
 
     const months = moment.months();
 
-    document.querySelector('.date h1').innerHTML = months[month];
+    document.querySelector('.date h1').innerHTML = months[month] + " " + year;
     document.querySelector('.date p').innerHTML = new Date().toDateString();
 
     let days = "";
@@ -21,7 +22,7 @@ const renderCalendar = (month) => {
     }
 
     for (let i = 1; i <= lastDay; i++) {
-        if (moment().date() === i && month === moment().month()) {
+        if (moment().date() === i && month === moment().month() && year == moment().year()) {
             days += `<div class="today">${i}</div>`;
         } else {
             days += `<div>${i}</div>`;
@@ -32,15 +33,31 @@ const renderCalendar = (month) => {
         days += `<div class="next-date">${i}</div>`;  
     }
     monthDays.innerHTML = days;
+    console.log(month)
 };
 
-renderCalendar(moment().month());
+renderCalendar(month);
+
+checkMonth = (month) => {
+    if (month === 12) {
+        month = 0;
+        moment().set('year', year++)
+    } else if (month === -1){
+        month = 11;
+        moment().set('year', year--)
+    }   
+    return month;
+}
 
 document.querySelector('.prev').addEventListener("click", () => {
     date.setMonth(date.getMonth() - 1);
-    renderCalendar(moment().month() - 1);
+    moment().set('month', month--)
+    month = checkMonth(month);
+    renderCalendar(month);
 })
 document.querySelector('.next').addEventListener("click", () => {
     date.setMonth(date.getMonth() + 1);
-    renderCalendar(moment().month() + 1);
+    moment().set('month', month++)
+    month = checkMonth(month);
+    renderCalendar(month);
 })
