@@ -1,9 +1,7 @@
 //THIS IS THE VANILLA JS BRANCH
-
 const date = new Date();
-let month = moment().month();
-let year = moment().year();
-const renderCalendar = (month) => {
+let year = date.getFullYear();
+const renderCalendar = () => {
     const monthDays = document.querySelector('.days');
     const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); //specifying the day as 0 gives you the last day of the current month 
     const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
@@ -12,9 +10,13 @@ const renderCalendar = (month) => {
     const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
     const nextDays = 7-lastDayOfMonth-1;
 
-    const months = moment.months();
+    const months = [];
+    for (let i = 0; i <= 11; i++) {   
+        const d = new Date();
+        months.push(new Date(d.setMonth(i)).toLocaleString('default', { month: 'long' }));
+    }
 
-    document.querySelector('.date h1').innerHTML = months[month] + " " + year;
+    document.querySelector('.date h1').innerHTML = months[date.getMonth()] + " " + date.getFullYear();
     document.querySelector('.date p').innerHTML = new Date().toDateString();
 
     let days = "";
@@ -24,7 +26,7 @@ const renderCalendar = (month) => {
     }
 
     for (let i = 1; i <= lastDay; i++) {
-        if (moment().date() === i && month === moment().month() && year == moment().year()) {
+        if (i === new Date().getDate() && date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
             days += `<div class="today">${i}</div>`;
         } else {
             days += `<div>${i}</div>`;
@@ -35,31 +37,15 @@ const renderCalendar = (month) => {
         days += `<div class="next-date">${i}</div>`;  
     }
     monthDays.innerHTML = days;
-    console.log(month)
 };
 
-renderCalendar(month);
-
-checkMonth = (month) => {
-    if (month === 12) {
-        month = 0;
-        moment().set('year', year++)
-    } else if (month === -1){
-        month = 11;
-        moment().set('year', year--)
-    }   
-    return month;
-}
+renderCalendar();
 
 document.querySelector('.prev').addEventListener("click", () => {
     date.setMonth(date.getMonth() - 1);
-    moment().set('month', month--)
-    month = checkMonth(month);
-    renderCalendar(month);
+    renderCalendar();
 })
 document.querySelector('.next').addEventListener("click", () => {
     date.setMonth(date.getMonth() + 1);
-    moment().set('month', month++)
-    month = checkMonth(month);
-    renderCalendar(month);
+    renderCalendar();
 })
