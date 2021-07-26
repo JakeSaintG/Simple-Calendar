@@ -1,3 +1,5 @@
+//THIS IS THE VANILLA JS BRANCH
+
 const date = new Date();
 let month = moment().month();
 let year = moment().year();

@@ -1,0 +1,23 @@
+{
+  "name": "simplecalendar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/app.js",
+  "dependencies": {
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeSaintG/SimpleCalendar.git"
+  },
+  "author": "Jake St. Germain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakeSaintG/SimpleCalendar/issues"
+  },
+  "homepage": "https://github.com/JakeSaintG/SimpleCalendar#readme"
+}
